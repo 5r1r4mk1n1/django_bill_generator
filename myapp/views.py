@@ -77,6 +77,9 @@ def savechanges(request):
         amount=data[i][5]
         obj=Mymodel(sno=sino,date=date,consignee=consignee,destination=dest,weight=weight,amount=amount)
         obj.save()
+    bil=Billno.objects.get(id=1)
+    bil.billtotal=int(json.loads(request.POST.get('total')))
+    bil.save()
         
 
     return HttpResponse("done")

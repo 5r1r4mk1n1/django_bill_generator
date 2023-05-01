@@ -3,7 +3,7 @@ from reportlab.lib import colors
 from reportlab.lib.styles import ParagraphStyle
 from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph
 import datetime
-from myapp.models import Mymodel
+from myapp.models import Mymodel, GeneratedBills
 
 date=datetime.date.today().strftime("%d/%m/%Y")
 month=datetime.date.today().strftime("%B")
@@ -28,9 +28,12 @@ def generatepdf(billno):
     table.setStyle(style)
 
     # Create the PDF document and add the table
-    doc = SimpleDocTemplate("static/bills/Bill_No_"+billno+".pdf", pagesize=letter, leftMargin=100, rightMargin=100, topMargin=10, bottomMargin=20)
 
+   
+    doc = SimpleDocTemplate("static/bills/Bill_No_"+billno+".pdf", pagesize=letter, leftMargin=100, rightMargin=100, topMargin=10, bottomMargin=20)
     doc.build([table])
+    fo=GeneratedBills(no=int(billno),pdf="static/bills/Bill_No_"+billno+".pdf")
+    fo.save()
 
 
 def getdata(billno): 

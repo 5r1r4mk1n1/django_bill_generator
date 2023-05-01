@@ -1,6 +1,6 @@
 from django.shortcuts import render,HttpResponse
 from django.http import JsonResponse, FileResponse
-from myapp.models import Mymodel,Billno
+from myapp.models import Mymodel,Billno, GeneratedBills
 import time
 import json
 import datetime
@@ -59,9 +59,8 @@ def download(request):
         bill.billtotal=0
         bill.save()
         Mymodel.objects.all().delete() 
-        path = "static/bills/Bill_No_"+str(no)+".pdf"
-        with open(path,"rb") as f:
-            response = HttpResponse(f.read(), content_type='application/pdf')
+        with open("static/bills/Bill_No_"+str(no)+".pdf","rb") as f:
+            response = HttpResponse(f, content_type='application/pdf')
             response['Content-Disposition']='attachment;  filename="Bill_No_%s.pdf"' %no
             return response
 

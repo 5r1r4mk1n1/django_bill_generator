@@ -12,4 +12,8 @@ class Mymodel(models.Model):
 class Billno(models.Model):
     billno = models.IntegerField()
     billtotal = models.BigIntegerField()
+
+class GeneratedBills(models.Model):
+    no = models.IntegerField()
+    pdf = models.FileField(upload_to="static/bills")
     

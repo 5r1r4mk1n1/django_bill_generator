@@ -24,5 +24,6 @@ urlpatterns = [
     path('add-item',views.addentry,name="addentry"),
     path('delete-item',views.deleteitem,name="deleteitem"),
     path('get_no_entries',views.getno,name="getno"),
-    path('download',views.download,name='download')
+    path('download',views.download,name='download'),
+    path('savechanges',views.savechanges,name='savechanges'),
 ]

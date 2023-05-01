@@ -108,6 +108,52 @@ var csrfToken = document.getElementsByName("csrfmiddlewaretoken")[0].value;
 }
 }
 
+
+
+function savechanges() {
+  var tableBody = document.getElementById("mytable")
+  var rows = tableBody.getElementsByTagName("tr");
+  var tableData=[]
+  if (rows.length > 0 && rows[0].getElementsByTagName("th").length > 0) {
+    var headers = rows[0].getElementsByTagName("th");
+    for (var i = 0; i < rows.length; i++) {
+        var cells = rows[i].getElementsByTagName("td");
+        var rowData = [];
+        for (var j = 0; j < cells.length; j++) {
+            // Check if the header exists before accessing it
+            if (headers[j]) {
+                rowData.push(cells[j].textContent);
+            }
+        }
+        tableData.push(rowData);
+    }
+  }
+  
+var totalAmount = calculateTotal();
+var t = document.getElementById("total-amount")
+t.innerHTML=totalAmount
+console.log(tableData)
+var csrfToken = document.getElementsByName("csrfmiddlewaretoken")[0].value;
+  $.ajax({
+    url: '/savechanges',
+    type: 'POST',
+    data: {
+      'table': JSON.stringify(tableData),
+      'total' : JSON.stringify(totalAmount),
+      'csrfmiddlewaretoken': csrfToken,
+    },
+    success: function(response) {
+      console.log(response);
+    }
+  });
+
+
+
+}
+
+
+
+
 function deleteRow() {
   var cnt;
   $.ajax({

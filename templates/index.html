@@ -9,9 +9,6 @@
     <link rel="icon" type="image/x-icon" href="https://store.webkul.com/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/a/k/akeneo-product-pdf-generator-webkul.png">
     <link rel="stylesheet" href="/static/style.css">
     <script src="/static/logic.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.debug.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.21/jspdf.plugin.autotable.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 
@@ -24,7 +21,6 @@
         <div class="tophead">
             <form>
                 {% csrf_token %}
-                
                 <label for="Consignee">Consignee:</label>
                 <input type="text" id="Consignee" name="Consignee">
                 <label for="Dest">Dest.</label>
@@ -35,9 +31,6 @@
                 <input type="text" id="Amount" name="Amount">
                 <input type="button" value="Add" onclick="addRow()">
             </form>
-           
-        
-              
         </div>
     </div>
     <div class="table-container">
@@ -56,11 +49,11 @@
                 {% for i in bills %}
                 <tr>
                     <td>{{ i.sno}}</td>
-                    <td>{{ i.date}}</td>
-                    <td>{{ i.consignee}}</td>
-                    <td>{{ i.destination}}</td>
-                    <td>{{ i.weight}}</td>
-                    <td>{{ i.amount}}</td>
+                    <td contenteditable="true">{{ i.date}}</td>
+                    <td contenteditable="true">{{ i.consignee}}</td>
+                    <td contenteditable="true">{{ i.destination}}</td>
+                    <td contenteditable="true">{{ i.weight}}</td>
+                    <td contenteditable="true">{{ i.amount}}</td>
                 </tr>
                 {% endfor %} 
             </tbody>
@@ -79,8 +72,9 @@
 
     <div class="button-container">
     <button id="btn2" onclick="deleteRow()">Delete</button>
+    <button id='btn3' onclick="savechanges()">Save Changes</button>
     <a href="/download">
-    <button id="btn3" onclick="createPDF()">Create PDF</button></a>
+    <button id="btn3">Create PDF</button></a>
     </div>
 
 </body>

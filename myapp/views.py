@@ -64,3 +64,19 @@ def download(request):
             response = HttpResponse(f.read(), content_type='application/pdf')
             response['Content-Disposition']='attachment;  filename="Bill_No_%s.pdf"' %no
             return response
+
+def savechanges(request):
+    data=json.loads(request.POST.get('table'))
+    Mymodel.objects.all().delete()
+    for i in range(1,len(data)-1):
+        sino=data[i][0]
+        date=data[i][1]
+        consignee=data[i][2]
+        dest=data[i][3]
+        weight=data[i][4]
+        amount=data[i][5]
+        obj=Mymodel(sno=sino,date=date,consignee=consignee,destination=dest,weight=weight,amount=amount)
+        obj.save()
+        
+
+    return HttpResponse("done")

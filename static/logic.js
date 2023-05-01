@@ -19,7 +19,10 @@ function calculateTotal() {
 
  // serial number
 function addRow() {
-
+  let amount = document.getElementById("Amount").value;
+  if(!Number.isInteger(Number(amount))){
+    alert('Please enter an integer for the amount!');}
+  else{
   $.ajax({
     url: '/get_no_entries',
     type: 'GET',
@@ -103,6 +106,7 @@ var csrfToken = document.getElementsByName("csrfmiddlewaretoken")[0].value;
   });
   // Get the table body element in which you want to add row
 }
+}
 
 function deleteRow() {
   var cnt;
@@ -137,6 +141,7 @@ let rmv=rowCount-1;
     type: 'POST',
     data: {
       'row': cnt,
+      'total': JSON.stringify(totalAmount),
       'csrfmiddlewaretoken': csrfToken,
     },
     success: function(response) {

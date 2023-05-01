@@ -32,10 +32,13 @@ def addentry(request):
 
 
 def deleteitem(request):
-    print(Mymodel._meta.pk.name)
+    # print(Mymodel._meta.pk.name)
     row=int(request.POST.get('row'))
     bill = Mymodel.objects.get(sno=row)
     bill.delete()
+    obj = Billno.objects.get(id=1)
+    obj.billtotal=int(request.POST.get('total'))
+    obj.save()
 
     print(str(row)+" deleted")
     return HttpResponse("Deleted successfully")

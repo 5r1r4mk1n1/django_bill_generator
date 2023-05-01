@@ -54,7 +54,6 @@ def download(request):
     else:
         bill = Billno.objects.get(id=1)
         no=bill.billno
-        print(no)
         generatepdf(str(no))
         bill.billno=no+1
         bill.billtotal=0
@@ -62,6 +61,6 @@ def download(request):
         Mymodel.objects.all().delete() 
         path = "static/bills/Bill_No_"+str(no)+".pdf"
         with open(path,"rb") as f:
-            response = HttpResponse(f.read())
+            response = HttpResponse(f.read(), content_type='application/pdf')
             response['Content-Disposition']='attachment;  filename="Bill_No_%s.pdf"' %no
             return response
